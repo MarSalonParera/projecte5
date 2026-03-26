@@ -1,0 +1,91 @@
+/* Fondo general */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #f5f6fa;
+  margin: 0;
+}
+
+/* Contenedor principal */
+.container {
+  background: white;
+  padding: 30px;
+  margin-top: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Info (sala + jugador) */
+#info {
+  background: #2f3640;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9em;
+}
+
+/* Marcador */
+.marcador {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.jugador {
+  padding: 15px 25px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  min-width: 120px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.vermell {
+  background-color: #e74c3c;
+}
+
+.blau {
+  background-color: #3498db;
+}
+
+.punts {
+  display: block;
+  font-size: 2em;
+  margin-top: 5px;
+}
+
+/* Tablero */
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+td { 
+  width: 50px; 
+  height: 50px; 
+  border: 1px solid #dcdde1; 
+  text-align: center; 
+  cursor: pointer; 
+  transition: 0.2s;
+}
+
+td:hover {
+  background-color: #f1f2f6;
+}
+
+/* Colores jugadores en tablero */
+.jug1 { 
+  background-color: #ff4d4d; 
+}
+
+.jug2 { 
+  background-color: #4d79ff; 
+}

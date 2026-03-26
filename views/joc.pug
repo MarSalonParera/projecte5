@@ -1,0 +1,57 @@
+extends layout
+
+block content
+  link(rel="stylesheet", href="/css/estils.css")
+
+  .container
+    h1 Joc de Caselles
+
+    p#info Carregant partida...
+
+    .marcador-container
+      h2 Marcador
+
+      .marcador
+        .jugador.vermell
+          span.nom Vermell
+          span.punts#punts-jug1 0
+
+        .jugador.blau
+          span.nom Blau
+          span.punts#punts-jug2 0
+
+    table#tauler
+
+  script(src="/js/fetch.js")
+  script.
+    window.addEventListener("load", async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+
+      let salaEnURL = urlParams.get('sala');
+
+      try {
+        if (!salaEnURL) {
+            const resSala = await fetch('/crearSala', { method: 'POST' });
+            const dadesSala = await resSala.json();
+            idSala = dadesSala.idSala;
+            window.history.replaceState({}, '', `?sala=${idSala}`);
+        } else {
+            idSala = salaEnURL;
+        }
+
+        const resJug = await fetch('/unirJugador', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idSala, nom: 'Jugador 1' })
+        });
+
+        const dadesJug = await resJug.json();
+        jugador = dadesJug.color;
+
+        document.getElementById('info').textContent =
+          `Sala: ${idSala} | Ets el: ${jugador}`;
+
+      } catch (e) {
+        console.error("Error inicialitzant el joc:", e);
+      }
+    });
