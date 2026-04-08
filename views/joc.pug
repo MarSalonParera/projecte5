@@ -1,0 +1,52 @@
+extends layout
+
+block content
+  link(rel="stylesheet", href="/css/estils.css")
+
+  .container
+    h1 Joc de Caselles
+
+    p#info Carregant partida...
+
+    .marcador-container
+      h2 Marcador
+
+      .marcador
+        .jugador.vermell
+          span.nom Vermell
+          span.punts#punts-jug1 0
+
+        .jugador.blau
+          span.nom Blau
+          span.punts#punts-jug2 0
+
+    table#tauler
+
+  script(src="/js/fetch.js")
+  script(src="/js/xhr.js")
+  script.
+    window.addEventListener("load", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      let salaEnURL = urlParams.get('sala');
+
+      if (!salaEnURL) {
+        // Fem servir la funció XHR per crear la sala
+        crearSalaXHR((dadesSala) => {
+          idSala = dadesSala.idSala;
+          window.history.replaceState({}, '', `?sala=${idSala}`);
+          inicialitzarJugador();
+        });
+      } else {
+        idSala = salaEnURL;
+        inicialitzarJugador();
+      }
+
+      function inicialitzarJugador() {
+        // Fem servir la funció XHR per unir el jugador
+        unirJugadorXHR(idSala, 'Jugador 1', (dadesJug) => {
+          jugador = dadesJug.color;
+          document.getElementById('info').textContent =
+            `Sala: ${idSala} | Ets el: ${jugador}`;
+        });
+      }
+    });
